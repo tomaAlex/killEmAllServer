@@ -1,0 +1,48 @@
+doctype html
+head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+    script(type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js")
+    script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+    script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.jshttps://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js")
+    script(type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+    style.
+        body {
+            background-image: url("https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            background-color: darkgrey;
+        }
+body
+    script.
+        function goToSignUp()
+        {
+            window.history.pushState("", "", "/signUp");
+            location.reload();
+        }
+        function goToLogin()
+        {
+            window.history.pushState("", "", "/login");
+            location.reload();
+        }
+    form(method='POST' action='/signUp' style="margin-left: 5%; margin-right: 5%; margin-top: 5%" class="was-validated")
+        div.form-group
+            label(for='firstName' style="color: white") First Name
+            input#firstName.form-control(type='text', name='firstName', value=firstName, placeholder="e.g.: Toma", required)
+        div.form-group
+            label(for='secondName' style="color: white") Second Name
+            input#secondName.form-control(type='text', name='secondName', value=secondName, placeholder="e.g.: Alex", required)
+        div.form-group
+            label(for='email' style="color: white") Email:
+            input#email.form-control(type='email', name='email', value=email, placeholder="e.g.: somename@somedomain.com", required)
+        div.form-group
+            label(for='username' style="color: white") Username
+            if error
+                input#username.form-control(type='text', name='username', placeholder=error, value=null, required)
+            else
+                input#username.form-control(type='text', name='username', placeholder='e.g.: miauMiau23 (this is the name your friends will identify you with', value=null, required)
+        div.form-group
+            label(for='password' style="color: white") Password:
+            input#passwordw.form-control(type='password' name='password' placeholder="please, use a solid password, having a minimum of 6 characters, small and capital letters, as well as numbers and symbols!" required)
+        div(style="margin-left: 5%; margin-right: 5%;")
+            button.btn.btn-primary(type='submit', style="width: 100%; margin-top: 10px") Submit
+    div(style="margin-left: 5%; margin-right: 5%;")
+        div(style="margin-left: 5%; margin-right: 5%; margin-top: 10px;")
+            button.btn.btn-primary(type='', style="width: 100%;", onclick="goToLogin();") Do you already have an account? Login!

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+        <!-- Popper JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <!-- The Server -->
+        <!-- <script src="server.js"></script> -->
+
+        <style>
+            body {
+                background-image: url("https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+                background-color: darkgrey;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <script>
+            function goToSignUp()
+            {
+                window.history.pushState("", "", "/signUp");
+                location.reload();
+            }
+            function goToLogin()
+            {
+                window.history.pushState("", "", "/login");
+                location.reload();
+            }
+        </script>
+        <div style="margin-left: 5%; margin-right: 5%; margin-top: 5%">
+            <div>
+                <label style="color: #ffffff"> Thank You Very Much For Your Registration! :) </label>
+            </div>
+        </div>
+
+        <div style="margin-left: 5%; margin-right: 5%;">
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px" onclick="goToLogin();"> Let's play... Login! </button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "killemall",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexandru-Eugen Toma",
+  "license": "ISC",
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "irc": "^0.5.2",
+    "jsdom": "^15.1.1",
+    "mysql": "^2.17.1",
+    "p5": "^0.8.0",
+    "pug": "^2.0.4"
+  }
+}

@@ -1,0 +1,122 @@
+doctype html
+head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+    script(type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js")
+    script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js")
+    script(type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js")
+    style.
+        body {
+            background-image: url("https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+            background-color: darkgrey;
+        }
+body
+    div(style="margin-left: 5%; margin-right: 5%; margin-bottom: 10px; margin-top: 20%")
+        input(type="button", class="btn btn-primary", style="width: 100%; margin-bottom: 10px", onclick="createGame();", id="createGame", value="Create New Game", ondblclick="createGameReset();")
+        input(type="button", class="btn btn-primary", style="width: 100%; margin-bottom: 10px", onmousemove="enterGame();", id="enterGame", value="Enter a Game", onmouseout="enterGameReset();")
+        button.btn.btn-primary(style="width: 100%; margin-bottom: 10px", onclick="logout();", id="logout") Logout
+    script.
+        var displayWidth = window.innerWidth;
+        var displayHeight = window.innerHeight;
+        function createID()
+        {
+            let isUsable = true;
+            let idToReturn = Math.floor(100000 + Math.random() * 900000);
+            var xhttp = new XMLHttpRequest();
+            var params = "id=" + idToReturn;
+            xhttp.open("GET", "/checkIfChannelIsEmpty?" + params, false);
+            xhttp.send();
+            var response = JSON.parse(xhttp.response);
+            if(response.isEmpty == true)
+            {
+                return idToReturn;
+            }
+            else return createID();
+        }
+        function createGame()
+        {
+            //alert("creating a new game");
+            var createGameButton = document.getElementById('createGame');
+            if(createGameButton.value=="Create New Game")
+            {
+                // the value must become the port that the IRC server would be using
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/whichUser", false);
+                //xhttp.responseType = 'json';
+                xhttp.send();
+                var response = JSON.parse(xhttp.response);
+                console.log(response);
+                createGameButton.value = "ID: " + createID();
+                createGameButton.class = "form-control";
+                createGameButton.type = "text";
+            }
+        }
+        function createGameReset()
+        {
+            //alert("OK");
+            var createGameButton = document.getElementById('createGame');
+            createGameButton.type = "button";
+            createGameButton.value = "Create New Game";
+            createGameButton.class = "btn btn-primary";
+        }
+        function enterGame()
+        {
+            var enterGameButton = document.getElementById('enterGame');
+            if(enterGameButton.type == "button")
+            {
+                //alert("entering an existing game");
+                enterGameButton.type = "text";
+                enterGameButton.placeholder = "Enter a Game";
+                enterGameButton.value = "";
+            }
+        }
+        function enterGameReset()
+        {
+            var enterGameButton = document.getElementById('enterGame');
+            enterGameButton.type = "button";
+            enterGameButton.placeholder = "";
+            enterGameButton.value = "Enter a Game";
+        }
+        function logout()
+        {
+            //alert("logging out");
+            window.history.pushState("", "", "/logout");
+            location.reload();
+        }
+        function checkIfTheGameBegins()
+        {
+            //alert("Ok");
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/shouldTheGameBegin", false);
+            xhttp.send();
+            var response = JSON.parse(xhttp.response);
+            //console.log(response.msg);
+            var enterGameButton = document.getElementById('enterGame');
+            if(response.msg != "the game has not been created yet...")
+            {
+                enterGameButton.value = response.msg;
+            }
+        }
+        setInterval(checkIfTheGameBegins, 2000);
+        window.onkeydown = function(e)
+        {
+            //alert(e.keyCode);
+            var enterGameButton = document.getElementById('enterGame');
+            if(e.keyCode == 13 && enterGameButton.value)
+            {
+                //alert(enterGameButton.value);
+                // check whether the canal can be entered (isDefined)
+                var xhttp = new XMLHttpRequest();
+                var params = "id=" + enterGameButton.value;
+                xhttp.open("GET", "/isChannelDefined?" + params, false);
+                xhttp.send();
+                var response = JSON.parse(xhttp.response);
+                if(response.isDefined == false)
+                {
+                    enterGameButton.value = response.errormsg;
+                }
+                else
+                {
+                    enterGameButton.value = "the current number of players: " + response.currentNumberOfPLayers;
+                }
+            }
+        }
